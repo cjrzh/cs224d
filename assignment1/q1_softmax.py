@@ -18,13 +18,21 @@ def softmax(x):
 
     You must implement the optimization in problem 1(a) of the 
     written assignment!
-    """
+    """  
 
-    ### YOUR CODE HERE
-    raise NotImplementedError
-    ### END YOUR CODE
-    
-    return x
+    try:
+    	m,n=x.shape
+    except ValueError:
+    	m=1
+    	n=x.shape[0]
+   	    #convert the row vector to a matrix
+    	x=x.reshape(m,n)
+    #print m,' ',n
+    c=np.max(x,axis=1).reshape(m,1)
+    x=x-c
+    x_exp=np.exp(x)
+    x_sum=np.sum(x_exp,axis=1).reshape(m,1)
+    return x_exp/x_sum
 
 def test_softmax_basic():
     """
@@ -63,4 +71,4 @@ def test_softmax():
 
 if __name__ == "__main__":
     test_softmax_basic()
-    test_softmax()
+    #test_softmax()
